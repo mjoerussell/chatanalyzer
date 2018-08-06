@@ -30,8 +30,8 @@ class XMLConverter:
         with open(filepath) as f:
             return f.read()
 
-
-converter = XMLConverter("../code/krissy_conversation.xml")
+'''
+converter = XMLConverter("text_analyzer/res/krissy_conversation.xml")
 convo_dataframe = converter.get_dataframe()
-print(convo_dataframe[convo_dataframe["tag"] == 'sms'])
-
+print(convo_dataframe["readable_date"][0])
+'''
