@@ -3,8 +3,10 @@ import numpy as np
 from datetime import datetime
 from xml_converter import XMLConverter
 
-path = "text_analyzer/res/krissy_conversation.xml"
+path = "res/krissy_conversation.xml"
 date_parse = '%b %d, %Y %I:%M:%S %p'
+
+group_by = lambda x, y: x.set_index("readable_date").loc["2018-07-24":"2018-08-05"].groupby(pd.Grouper(freq=y))
 
 def number_of(df):
     return df.shape[0]
@@ -56,9 +58,9 @@ def get_texts_from_date(df, date):
     grouped = df.set_index("readable_date").groupby(pd.Grouper(freq='D'))
     return grouped.get_group(date)
 
-def get_grouped_texts(df):
+def get_grouped_texts(df, by = 'D'):
     df["readable_date"] = pd.to_datetime(df["readable_date"])
-    return df.set_index("readable_date").loc["2018-07-24":"2018-08-05"].groupby(pd.Grouper(freq='D'))
+    return group_by(df, by)
 
 def get_dataframe():
     converter = XMLConverter(path)
